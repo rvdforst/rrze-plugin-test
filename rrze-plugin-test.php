@@ -3,7 +3,7 @@
 /*
   Plugin Name: RRZE Plugin Test
   Plugin URI: https://github.com/rvdforst/rrze-plugin-test
-  Version: 1.0.4
+  Version: 1.0.5
   Description: RRZE Plugin Test.
   Author: rvdforst
   Author URI: https://github.com/rvdforst
