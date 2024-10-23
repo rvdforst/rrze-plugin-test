@@ -1,2 +1,10 @@
-# rrze-plugin-test
-RRZE Plugin Test
+<!-- BEGIN PLUGIN DATA -->
+<!-- END PLUGIN DATA -->
+
+[![Aktuelle Version](https://img.shields.io/github/package-json/v/rvdforst/rrze-plugin-test/main?label=Version)](https://github.com/RRZE-Webteam/rrze-hello-lenny)
+[![Release Version](https://img.shields.io/github/v/release/rvdforst/rrze-plugin-test?label=Release+Version)](https://github.com/rvdforst/rrze-plugin-test/releases/)
+[![GitHub License](https://img.shields.io/github/license/rvdforst/rrze-plugin-test)](https://github.com/RRZE-Webteam/rrze-hello-lenny)
+[![GitHub issues](https://img.shields.io/github/issues/RRZE-Webteam/rrze-hello-lenny)](https://github.com/RRZE-Webteam/rrze-hello-lenny/issues)
+
+
+# RRZE Plugin Test
