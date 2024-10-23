@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js (needed for semantic versioning)
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '20'
 
       - name: Update package version from plugin
         id: version_update
@@ -41,28 +41,14 @@ jobs:
           # Write plugin data to README.md
           sed -i '/<!-- BEGIN PLUGIN DATA -->/,/<!-- END PLUGIN DATA -->/c\<!-- BEGIN PLUGIN DATA -->\n$plugin_data\n<!-- END PLUGIN DATA -->' README.md
 
-      - name: Commit version update
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          if [ -f "package.json" ]; then
-            git add package.json
-          fi
-          git commit -m "Update version to ${{ steps.version_update.outputs.new_version }}"
-
       - name: Push changes to dev branch
         uses: ad-m/github-push-action@v0.6.0
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: dev
-
-      - name: Merge dev into main
-        run: |
-          git fetch origin
-          git checkout main
-          git merge dev --no-ff -m "Merge branch 'dev' into 'main'"
 
       - name: Push changes to main branch
         uses: ad-m/github-push-action@v0.6.0
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
