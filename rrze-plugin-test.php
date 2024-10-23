@@ -1,36 +1,43 @@
 <?php
 
 /*
-  Plugin Name: RRZE Plugin Test
-  Plugin URI: https://github.com/rvdforst/rrze-plugin-test
-  Version: 1.0.28
-  Description: RRZE Plugin Test.
-  Author: rvdforst
-  Author URI: https://github.com/rvdforst
- */
+Plugin Name:        RRZE Plugin Test
+Plugin URI:         https://github.com/rvdforst/rrze-plugin-test
+Version:            1.1.0
+Description:        RRZE Plugin Test.
+Author:             R.v.d. Forst
+Author URI:         https://gitlab.rrze.fau.de/rvdforst
+License:            GNU General Public License v2
+License URI:        http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:        rrze-plugin-test
+Domain Path:        /languages
+Requires at least:  6.6
+Requires PHP:       8.2
+Update URI:         https://github.com/rvdforst/rrze-plugin-test
+*/
 
 if (!defined('ABSPATH')) {
     exit();
 }
 
-// Minimal erforderliche PHP-Version.
-define('RRZE_PLUGIN_TEST_PHP_VERSION', '5.5');
+// Minimum required PHP version.
+define('RRZE_PLUGIN_TEST_PHP_VERSION', '8.2');
 
-// Minimal erforderliche WordPress-Version.
-define('RRZE_PLUGIN_TEST_WP_VERSION', '4.6');
+// Minimum required WordPress version.
+define('RRZE_PLUGIN_TEST_WP_VERSION', '6.6');
 
 register_activation_hook(__FILE__, function () {
     $error = '';
 
     if (version_compare(PHP_VERSION, RRZE_PLUGIN_TEST_PHP_VERSION, '<')) {
-        $error = sprintf(__('Ihre PHP-Version %s ist veraltet. Bitte aktualisieren Sie mindestens auf die PHP-Version %s.', 'rrze-plugin-test'), PHP_VERSION, RRZE_PLUGIN_TEST_PHP_VERSION);
+        $error = sprintf(__('Your PHP version %s is out of date. Please upgrade to at least PHP version %s.', 'rrze-plugin-test'), PHP_VERSION, RRZE_PLUGIN_TEST_PHP_VERSION);
     }
 
     if (version_compare($GLOBALS['wp_version'], RRZE_PLUGIN_TEST_WP_VERSION, '<')) {
-        $error = sprintf(__('Ihre Wordpress-Version %s ist veraltet. Bitte aktualisieren Sie mindestens auf die Wordpress-Version %s.', 'rrze-plugin-test'), $GLOBALS['wp_version'], RRZE_PLUGIN_TEST_WP_VERSION);
+        $error = sprintf(__('Your Wordpress version %s is out of date. Please upgrade to at least Wordpress version %s.', 'rrze-plugin-test'), $GLOBALS['wp_version'], RRZE_PLUGIN_TEST_WP_VERSION);
     }
 
-    // Wenn die Überprüfung fehlschlägt, dann wird das Plugin automatisch deaktiviert.
+    // If the verification fails, the plugin will be automatically deactivated.
     if (!empty($error)) {
         deactivate_plugins(plugin_basename(__FILE__), FALSE, TRUE);
         wp_die($error);
