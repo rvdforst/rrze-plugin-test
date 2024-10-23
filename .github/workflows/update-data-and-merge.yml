@@ -6,7 +6,7 @@ on:
       - dev
 
 jobs:
-  version_increment:
+  update_data_and_merge:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,14 +22,18 @@ jobs:
         id: version_update
         run: |
           # Define plugin filename
-          plugin_file="rrze-plugin-test.php"
+          plugin_file="plugin.php"
 
           # Extract current version from plugin file
           version=$(grep -oP 'Version:\s*\K[0-9]+\.[0-9]+\.[0-9]+' "$plugin_file")
           echo "Current version: $version"
 
-          # Update version in package.json
-          jq --arg new_version "$version" '.version = $new_version' package.json > tmp.json && mv tmp.json package.json
+          # Update version in package.json if it exists
+          if [ -f "package.json" ]; then
+            jq --arg new_version "$version" '.version = $new_version' package.json > tmp.json && mv tmp.json package.json
+          else
+            echo "package.json not found, skipping version update in package.json"
+          fi
 
           # Extract plugin data from plugin file
           plugin_data=$(awk '/^\s*\w+:/{gsub(/^[ \t]+/, ""); print $0 "<br>"}' "$plugin_file")
@@ -41,7 +45,10 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add package.json README.md
+          git add README.md
+          if [ -f "package.json" ]; then
+            git add package.json
+          fi
           git commit -m "Update version to ${{ steps.version_update.outputs.new_version }}"
 
       - name: Push changes to dev branch
