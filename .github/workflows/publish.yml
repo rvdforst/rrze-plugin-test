@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch all history to ensure common commits are available
+          fetch-depth: 0
 
       - name: Update package version from plugin
         id: version_update
@@ -36,14 +36,14 @@ jobs:
           fi
 
           # Extract plugin data from plugin file excluding the /* and */ lines
-          plugin_data=$(awk '/^[ \t]*\*?[ \t]*(Plugin Name|Plugin URI|Version|Description|Author|Author URI|License|License URI|Text Domain|Domain Path|Requires at least|Requires PHP|Update URI):/ { gsub(/^[ \t]*\*?[ \t]*/, ""); if (NR > 1) { printf "%s<br>\n", $0 } else { print $0 } }' "$plugin_file")
+          plugin_data=$(awk '/^[ \t]*\*?[ \t]*(Plugin Name|Plugin URI|Version|Description|Author|Author URI|License|License URI|Text Domain|Domain Path|Requires at least|Requires PHP|Update URI):/ { gsub(/^[ \t]*\*?[ \t]*/, ""); print $0 "<br>" }' "$plugin_file")
           echo "$plugin_data"
 
           # Write plugin data to README.md
-          escaped_plugin_data=$(echo "$plugin_data" | sed 's/[&/\]/\\&/g' | awk '{printf "%s\\n", $0}')
-          sed -i "/<!-- BEGIN PLUGIN DATA -->/,/<!-- END PLUGIN DATA -->/c\\
-          <!-- BEGIN PLUGIN DATA -->\\
-          $escaped_plugin_data\\
+          escaped_plugin_data=$(echo "$plugin_data" | sed 's/[&/\]/\\&/g' | awk '{printf "%s\n", $0}')
+          sed -i "/<!-- BEGIN PLUGIN DATA -->/,/<!-- END PLUGIN DATA -->/c\
+          <!-- BEGIN PLUGIN DATA -->\
+          $escaped_plugin_data\
           <!-- END PLUGIN DATA -->" README.md
 
       - name: Commit version changes to dev
@@ -56,9 +56,14 @@ jobs:
 
       - name: Check out the main branch
         run: |
+          git fetch origin
           git checkout main
+          git pull origin main
 
       - name: Merge dev into main
         run: |
-          git merge dev --no-ff -m "Merging updated version from dev to main" || { echo "Error: Merge failed"; exit 1; }
+          git merge origin/dev --no-ff -m "Merging updated version from dev to main" || { echo "Error: Merge failed"; exit 1; }
 
+      - name: Push changes to main branch
+        run: |
+          git push origin main || { echo "Error: Push to main branch failed"; exit 1; }
