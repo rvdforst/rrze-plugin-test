@@ -1,5 +1,5 @@
-<!-- BEGIN PLUGIN DATA -->
-Plugin Name:        RRZE Plugin Test<br>
+  <!-- BEGIN PLUGIN DATA -->
+  Plugin Name:        RRZE Plugin Test<br>
 Plugin URI:         https://github.com/rvdforst/rrze-plugin-test<br>
 Version:            1.2.2<br>
 Description:        RRZE Plugin Test.<br>
@@ -13,7 +13,7 @@ Requires at least:  6.6<br>
 Requires PHP:       8.2<br>
 Update URI:         https://github.com/rvdforst/rrze-plugin-test<br>
 
-<!-- END PLUGIN DATA -->
+  <!-- END PLUGIN DATA -->
 
 [![Release Version](https://img.shields.io/github/v/release/rvdforst/rrze-plugin-test?label=Release+Version)](https://github.com/rvdforst/rrze-plugin-test/releases/)
 [![GitHub License](https://img.shields.io/github/license/rvdforst/rrze-plugin-test)](https://github.com/rvdforst/rrze-plugin-test)
