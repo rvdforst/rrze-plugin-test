@@ -38,7 +38,7 @@ jobs:
           echo "$plugin_data"
 
           # Write plugin data to README.md
-          escaped_plugin_data=$(printf '%s\n' "$plugin_data" | sed 's/[&/\]/\\&/g')
+          escaped_plugin_data=$(echo "$plugin_data" | sed 's/[&/\]/\\&/g' | awk '{printf "%s\\n", $0}')
           sed -i "/<!-- BEGIN PLUGIN DATA -->/,/<!-- END PLUGIN DATA -->/c\\
           <!-- BEGIN PLUGIN DATA -->\\
           $escaped_plugin_data\\
