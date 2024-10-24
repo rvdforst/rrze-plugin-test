@@ -1,7 +1,7 @@
 <!-- BEGIN PLUGIN DATA -->
 Plugin Name:        RRZE Plugin Test<br>
 Plugin URI:         https://github.com/rvdforst/rrze-plugin-test<br>
-Version:            1.2.1<br>
+Version:            1.2.2<br>
 Description:        RRZE Plugin Test.<br>
 Author:             R.v.d. Forst<br>
 Author URI:         https://gitlab.rrze.fau.de/rvdforst<br>
