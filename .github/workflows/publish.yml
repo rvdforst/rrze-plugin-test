@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history to ensure common commits are available
 
       - name: Update package version from plugin
         id: version_update
@@ -34,7 +36,7 @@ jobs:
           fi
 
           # Extract plugin data from plugin file excluding the /* and */ lines
-          plugin_data=$(awk '/^[ \t]*\*?[ \t]*(Plugin Name|Plugin URI|Version|Description|Author|Author URI|License|License URI|Text Domain|Domain Path|Requires at least|Requires PHP|Update URI):/ { gsub(/^[ \t]*\*?[ \t]*/, ""); print $0 }' "$plugin_file")
+          plugin_data=$(awk '/^[ \t]*\*?[ \t]*(Plugin Name|Plugin URI|Version|Description|Author|Author URI|License|License URI|Text Domain|Domain Path|Requires at least|Requires PHP|Update URI):/ { gsub(/^[ \t]*\*?[ \t]*/, ""); if (NR > 1) { printf "%s<br>\n", $0 } else { print $0 } }' "$plugin_file")
           echo "$plugin_data"
 
           # Write plugin data to README.md
@@ -54,7 +56,6 @@ jobs:
 
       - name: Check out the main branch
         run: |
-          git fetch origin
           git checkout main
 
       - name: Merge dev into main
