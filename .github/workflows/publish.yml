@@ -34,7 +34,7 @@ jobs:
           fi
 
           # Extract plugin data from plugin file excluding the /* and */ lines
-          plugin_data=$(awk '/\/\*/,/\*\// { next } /^[ \t]*\w+:/ { gsub(/^[ \t]+/, ""); print $0 "<br>" }' "$plugin_file")
+          plugin_data=$(awk '!/\/\*/ && !/\*\// && /^[ \t]*\w+:/ { gsub(/^[ \t]+/, ""); print $0 "<br>" }' "$plugin_file")
           echo "$plugin_data"
 
           # Write plugin data to README.md
