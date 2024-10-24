@@ -67,3 +67,13 @@ jobs:
       - name: Push changes to main branch
         run: |
           git push origin main || { echo "Error: Push to main branch failed"; exit 1; }
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: "v${{ steps.version_update.outputs.new_version }}"
+          release_name: "Release v${{ steps.version_update.outputs.new_version }}"
+          draft: false
+          prerelease: false
