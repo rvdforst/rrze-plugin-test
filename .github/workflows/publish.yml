@@ -35,9 +35,13 @@ jobs:
 
           # Extract plugin data from plugin file excluding the /* and */ lines
           plugin_data=$(awk '/\/\*/,/\*\// { next } /^[ \t]*\w+:/ { gsub(/^[ \t]+/, ""); print $0 "<br>" }' "$plugin_file")
+          echo "$plugin_data"
 
           # Write plugin data to README.md
-          sed -i "/<!-- BEGIN PLUGIN DATA -->/,/<!-- END PLUGIN DATA -->/c\\<!-- BEGIN PLUGIN DATA -->\n$plugin_data\n<!-- END PLUGIN DATA -->" README.md
+          sed -i "/<!-- BEGIN PLUGIN DATA -->/,/<!-- END PLUGIN DATA -->/c\\
+          <!-- BEGIN PLUGIN DATA -->\\
+          $plugin_data\\
+          <!-- END PLUGIN DATA -->" README.md
 
       - name: Commit version changes to dev
         run: |
