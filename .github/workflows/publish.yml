@@ -38,9 +38,10 @@ jobs:
           echo "$plugin_data"
 
           # Write plugin data to README.md
+          escaped_plugin_data=$(printf '%s\n' "$plugin_data" | sed 's/[&/\]/\\&/g')
           sed -i "/<!-- BEGIN PLUGIN DATA -->/,/<!-- END PLUGIN DATA -->/c\\
           <!-- BEGIN PLUGIN DATA -->\\
-          $plugin_data\\
+          $escaped_plugin_data\\
           <!-- END PLUGIN DATA -->" README.md
 
       - name: Commit version changes to dev
