@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Update package.json & README version from plugin
+      - name: Update package.json version & update README using plugin data
         id: version_update
         run: |
           # Define plugin filename
@@ -43,7 +43,7 @@ jobs:
           fi
 
           # Extract plugin data from plugin file excluding the /* and */ lines
-          plugin_data=$(awk '/^[ \t]*\*?[ \t]*(Plugin Name|Plugin URI|Version|Description|Author|Author URI|License|License URI|Text Domain|Domain Path|Requires at least|Requires PHP|Update URI):/ { gsub(/^[ \t]*\*?[ \t]*/, ""); if (NR > 1) { printf "%s<br>\n", $0 } else { print $0 } }' "$plugin_file")
+          plugin_data=$(awk '/^[ \t]*\*?[ \t]*(Plugin Name|Plugin URI|Version|Description|Author|Author URI|License|License URI|Text Domain|Domain Path|Requires at least|Requires PHP|Update URI):/ { gsub(/^[ \t]*\*?[ \t]*/, ""); print $0 }' "$plugin_file")
           echo "$plugin_data"
 
           # Write plugin data to README.md
@@ -83,9 +83,9 @@ jobs:
         env:
           version: ${{ env.version }}
         run: |
-          if git rev-parse "v${{ env.version }}" >/dev/null 2>&1; then
-            echo "Tag v${{ env.version }} already exists. Skipping release."
-            exit 0
+          if git rev-parse "${{ env.version }}" >/dev/null 2>&1; then
+            echo "Tag ${{ env.version }} already exists. Skipping release."
+            exit 1
           fi
 
       - name: Create GitHub Release
@@ -94,7 +94,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           version: ${{ env.version }}
         with:
-          tag_name: "v${{ env.version }}"
-          release_name: "Release v${{ env.version }}"
+          tag_name: "${{ env.version }}"
+          release_name: "v${{ env.version }}"
           draft: false
           prerelease: false
