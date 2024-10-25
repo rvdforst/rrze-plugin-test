@@ -52,7 +52,7 @@ jobs:
             sed -i "/<!-- BEGIN PLUGIN DATA -->/,/<!-- END PLUGIN DATA -->/c\\
             <!-- BEGIN PLUGIN DATA -->\\
             $escaped_plugin_data\\
-            <!-- END PLUGIN DATA -->" README.md
+            <!-- END PLUGIN DATA -->" README.md | sed '$d'
           else
             echo "README.md not found, skipping plugin data update in README.md"
           fi
