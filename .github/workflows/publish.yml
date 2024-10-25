@@ -48,9 +48,12 @@ jobs:
 
           # Write plugin data to README.md
           if [ -f "README.md" ]; then
-            escaped_plugin_data=$(echo "$plugin_data" | sed ':a;N;$!ba;s/\n/<br>/g')
+            # Extract plugin data and replace newlines with <br>, avoiding extra <br> at the end
+            escaped_plugin_data=$(echo "$plugin_data" | sed ':a;N;$!ba;s/\n/<br>/g' | sed 's/<br>$//')
+            # Update README.md content
             sed -i "/<!-- BEGIN PLUGIN DATA -->/,/<!-- END PLUGIN DATA -->/c\\
-          <!-- BEGIN PLUGIN DATA -->$escaped_plugin_data\\
+          <!-- BEGIN PLUGIN DATA -->\\
+          $escaped_plugin_data\\
           <!-- END PLUGIN DATA -->" README.md
           else
             echo "README.md not found, skipping plugin data update in README.md"
