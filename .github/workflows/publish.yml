@@ -48,10 +48,7 @@ jobs:
 
           # Write plugin data to readme.txt if it exists
           if [ -f "readme.txt" ]; then
-            # Extract plugin data and ensure proper formatting
-            escaped_plugin_data=$(echo "$plugin_data" | sed ':a;N;$!ba;s/\n/<br>/g' | sed 's/<br>$//' | sed 's/<br><br>/<br>\\n/g')
-            
-            # Update readme.txt content without trailing empty lines or extra <br>
+            # Update readme.txt content
             echo "$plugin_data" > readme.txt
           else
             echo "readme.txt not found, skipping plugin data update in readme.txt"
