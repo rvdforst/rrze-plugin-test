@@ -49,7 +49,7 @@ jobs:
           # Write plugin data to README.md
           if [ -f "README.md" ]; then
             # Extract plugin data and ensure proper formatting
-            escaped_plugin_data=$(echo "$plugin_data" | sed ':a;N;$!ba;s/\n/<br>/g' | sed 's/<br>$//')
+            escaped_plugin_data=$(echo "$plugin_data" | sed ':a;N;$!ba;s/\n/<br>/g' | sed 's/<br>$//' | sed 's/<br><br>/<br>\\n/g')
             
             # Update README.md content without trailing empty lines or extra <br>
             sed -i "/<!-- BEGIN PLUGIN DATA -->/,/<!-- END PLUGIN DATA -->/c\\
