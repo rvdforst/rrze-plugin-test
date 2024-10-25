@@ -1,17 +1,17 @@
   <!-- BEGIN PLUGIN DATA -->
-  Plugin Name:        RRZE Plugin Test<br>
-Plugin URI:         https://github.com/rvdforst/rrze-plugin-test<br>
-Version:            1.2.4<br>
-Description:        RRZE Plugin Test.<br>
-Author:             R.v.d. Forst<br>
-Author URI:         https://gitlab.rrze.fau.de/rvdforst<br>
-License:            GNU General Public License v2<br>
-License URI:        http://www.gnu.org/licenses/gpl-2.0.html<br>
-Text Domain:        rrze-plugin-test<br>
-Domain Path:        /languages<br>
-Requires at least:  6.6<br>
-Requires PHP:       8.2<br>
-Update URI:         https://github.com/rvdforst/rrze-plugin-test<br>
+  Plugin Name:        RRZE Plugin Test
+Plugin URI:         https://github.com/rvdforst/rrze-plugin-test
+Version:            1.2.4
+Description:        RRZE Plugin Test.
+Author:             R.v.d. Forst
+Author URI:         https://gitlab.rrze.fau.de/rvdforst
+License:            GNU General Public License v2
+License URI:        http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:        rrze-plugin-test
+Domain Path:        /languages
+Requires at least:  6.6
+Requires PHP:       8.2
+Update URI:         https://github.com/rvdforst/rrze-plugin-test
 
   <!-- END PLUGIN DATA -->
 
