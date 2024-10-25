@@ -43,7 +43,7 @@ jobs:
           fi
 
           # Extract plugin data from plugin file excluding the /* and */ lines
-          plugin_data=$(awk '/^[ \t]*\*?[ \t]*(Plugin Name|Plugin URI|Version|Description|Author|Author URI|License|License URI|Text Domain|Domain Path|Requires at least|Requires PHP|Update URI):/ { gsub(/^[ \t]*\*?[ \t]*/, ""); printf "%s<br>\n", $0 }' "$plugin_file")
+          plugin_data=$(awk '/^[ \t]*\*?[ \t]*(Plugin Name|Plugin URI|Version|Description|Author|Author URI|License|License URI|Text Domain|Domain Path|Requires at least|Requires PHP|Update URI):/ { gsub(/^[ \t]*\*?[ \t]*/, ""); printf "%s\n", $0 }' "$plugin_file")
           echo "$plugin_data"
 
           # Write plugin data to readme.txt if it exists
