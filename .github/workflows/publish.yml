@@ -42,7 +42,6 @@ jobs:
             echo "package.json not found, skipping version update in package.json"
           fi
 
-          # Extract plugin data from plugin file excluding the /* and */ lines
           # Extract plugin data from plugin file
           plugin_data=$(awk '/^[ \t]*\*?[ \t]*(Plugin Name|Plugin URI|Version|Description|Author|Author URI|License|License URI|Text Domain|Domain Path|Requires at least|Requires PHP|Update URI):/ { gsub(/^[ \t]*\*?[ \t]*/, ""); print $0 }' "$plugin_file")
           echo "$plugin_data"
