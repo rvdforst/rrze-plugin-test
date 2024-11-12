@@ -1,4 +1,4 @@
-name: Notify on Push to Main
+name: Notify Matrix
 
 on:
   push:
@@ -6,15 +6,9 @@ on:
       - main  # Trigger only when there is a push to the main branch
 
 jobs:
-  notify_on_push_to_main:
+  notify_matrix:
     runs-on: ubuntu-latest
-    steps:
-      # Step to check environment variables
-      - name: Check environment variables
-        run: |
-          echo "MATRIX_ACCESS_TOKEN: ${{ secrets.MATRIX_ACCESS_TOKEN }}"
-          echo "MATRIX_ROOM_ID: ${MATRIX_ROOM_ID}"
-        
+    steps:        
       - name: Send Matrix notification
         env:
           MATRIX_ACCESS_TOKEN: ${{ secrets.MATRIX_ACCESS_TOKEN }}
