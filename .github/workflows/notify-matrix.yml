@@ -1,0 +1,22 @@
+name: Notify Matrix on Push to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify_matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send notification to Matrix
+        env:
+          MATRIX_ACCESS_TOKEN: ${{ secrets.MATRIX_ACCESS_TOKEN }}
+          MATRIX_ROOM_ID: "!wPHgwnoBavStKgWAMW:fau.de"  # Replace with your actual room ID
+        run: |
+          curl -X POST "https://matrix.fau.de/_matrix/client/r0/rooms/${MATRIX_ROOM_ID}/send/m.room.message?access_token=${MATRIX_ACCESS_TOKEN}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "msgtype": "m.text",
+              "body": "A new push was made to the main branch!"
+            }'
