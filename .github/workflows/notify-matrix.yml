@@ -1,12 +1,12 @@
-name: Notify on Merge
+name: Notify on Push to Main
 
 on:
-  pull_request:
-    types: [closed]  # Trigger only when a pull request is closed
+  push:
+    branches:
+      - main  # Trigger only when there is a push to the main branch
 
 jobs:
-  notify_on_merge:
-    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'  # Run only if PR is merged into 'main'
+  notify_on_push_to_main:
     runs-on: ubuntu-latest
     steps:
       - name: Send Matrix notification
@@ -14,11 +14,11 @@ jobs:
           MATRIX_ACCESS_TOKEN: ${{ secrets.MATRIX_ACCESS_TOKEN }}
           MATRIX_ROOM_ID: "%21wPHgwnoBavStKgWAMW%3Afau.de"  # HTML-encoded room ID
         run: |
-          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://matrix.org/_matrix/client/r0/rooms/${MATRIX_ROOM_ID}/send/m.room.message?access_token=${MATRIX_ACCESS_TOKEN}" \
+          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://matrix.fau.de/_matrix/client/r0/rooms/${MATRIX_ROOM_ID}/send/m.room.message?access_token=${MATRIX_ACCESS_TOKEN}" \
             -H "Content-Type: application/json" \
             -d "{
               \"msgtype\": \"m.text\",
-              \"body\": \"A pull request has been merged into the main branch: ${GITHUB_REPOSITORY} - PR #${{ github.event.pull_request.number }} - '${{ github.event.pull_request.title }}'\"
+              \"body\": \"A new push was made to the main branch in ${GITHUB_REPOSITORY}.\"
             }")
           if [ "$response" -ne 200 ]; then
             echo "Error: Failed to send notification to Matrix. HTTP status code: $response"
