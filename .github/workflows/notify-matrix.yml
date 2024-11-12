@@ -5,10 +5,6 @@ on:
         branches:
             - main # Trigger only when there is a push to the main branch
 
-    pull_request:
-        branches:
-            - main
-
 jobs:
     notify_matrix:
         runs-on: ubuntu-latest
@@ -22,7 +18,7 @@ jobs:
                     -H "Content-Type: application/json" \
                     -d "{
                       \"msgtype\": \"m.text\",
-                      \"body\": \"A new push was made to the main branch in ${GITHUB_REPOSITORY}.\"
+                      \"body\": \"Ein neuer Push wurde zum Branch \"main\" in ${GITHUB_REPOSITORY} von ${GITHUB_ACTOR} durchgeführt.\"
                     }")
                   if [ "$response" -ne 200 ]; then
                     echo "Error: Failed to send notification to Matrix. HTTP status code: $response"
