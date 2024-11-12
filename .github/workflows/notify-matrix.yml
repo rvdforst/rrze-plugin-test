@@ -5,6 +5,10 @@ on:
     branches:
       - main  # Trigger only when there is a push to the main branch
 
+  pull_request:
+    branches:
+        - main
+
 jobs:
   notify_matrix:
     runs-on: ubuntu-latest
