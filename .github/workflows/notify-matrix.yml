@@ -9,6 +9,12 @@ jobs:
   notify_on_push_to_main:
     runs-on: ubuntu-latest
     steps:
+      # Step to check environment variables
+      - name: Check environment variables
+        run: |
+          echo "MATRIX_ACCESS_TOKEN: ${{ secrets.MATRIX_ACCESS_TOKEN }}"
+          echo "MATRIX_ROOM_ID: ${MATRIX_ROOM_ID}"
+        
       - name: Send Matrix notification
         env:
           MATRIX_ACCESS_TOKEN: ${{ secrets.MATRIX_ACCESS_TOKEN }}
