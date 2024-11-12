@@ -18,5 +18,5 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{
               "msgtype": "m.text",
-              "body": "A new push was made to the main branch!"
+              "body": "A new push was made to the main branch! https://github.com/rvdforst/rrze-plugin-test/tree/main"
             }'
