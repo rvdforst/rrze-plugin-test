@@ -18,7 +18,7 @@ jobs:
             -H "Content-Type: application/json" \
             -d "{
               \"msgtype\": \"m.text\",
-              \"body\": \"A new push was made to the main branch in ${GITHUB_REPOSITORY} by ${GITHUB_ACTOR}. :angry:\"
+              \"body\": \"A new push was made to the main branch in ${GITHUB_REPOSITORY} by ${GITHUB_ACTOR}. &#128544;\"
             }")
           if [ "$response" -ne 200 ]; then
             echo "Error: Failed to send notification to Matrix. HTTP status code: $response"
