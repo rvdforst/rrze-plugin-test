@@ -1,6 +1,6 @@
 Plugin Name:        RRZE Plugin Test
 Plugin URI:         https://github.com/rvdforst/rrze-plugin-test
-Version:            1.3.27
+Version:            1.3.28
 Description:        RRZE Plugin Test.
 Author:             R.v.d. Forst
 Author URI:         https://gitlab.rrze.fau.de/rvdforst
